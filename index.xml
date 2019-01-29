@@ -6,30 +6,57 @@
     <description>Recent content on Tom Smith&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 29 Jan 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://shuaitq.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>About</title>
+      <title>Tom Smith</title>
       <link>https://shuaitq.github.io/about/</link>
-      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://shuaitq.github.io/about/</guid>
       
-        <description>&lt;p&gt;Hugo is a static site engine written in Go.&lt;/p&gt;
+        <description>
 
-&lt;p&gt;It makes use of a variety of open source projects including:&lt;/p&gt;
+&lt;h1 id=&#34;我是谁&#34;&gt;我是谁？&lt;/h1&gt;
+
+&lt;p&gt;我的中文名是帅天强，英文名为Tom Smith。一般以stq, shuaitq, Tom Smith等作为id。&lt;/p&gt;
+
+&lt;p&gt;我是一名哈尔滨工业大学（威海）计算机科学与技术的在读学生，预计在2020年毕业。&lt;/p&gt;
+
+&lt;h1 id=&#34;找到我&#34;&gt;找到我&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/cobra&#34;&gt;Cobra&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/viper&#34;&gt;Viper&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/jWalterWeatherman&#34;&gt;J Walter Weatherman&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/cast&#34;&gt;Cast&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Email: 1101282468@qq.com&lt;/li&gt;
+&lt;li&gt;QQ: 1101282468&lt;/li&gt;
+&lt;li&gt;Github: &lt;a href=&#34;https://github.com/shuaitq&#34;&gt;https://github.com/shuaitq&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;环境与技术栈&#34;&gt;环境与技术栈&lt;/h1&gt;
+
+&lt;p&gt;开发环境： Fedora + VS Code + 编译器
+编程语言： C++ &amp;gt; C &amp;gt; Java &amp;gt; Python &amp;gt; Go&lt;/p&gt;
+
+&lt;h1 id=&#34;项目&#34;&gt;项目&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/MIPS-CPU&#34;&gt;MIPS-CPU&lt;/a&gt; 一个使用Verilog语言开发的，基于MIPS32 Release 1指令集的五级流水CPU&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/MoonLight&#34;&gt;MoonLight&lt;/a&gt; 一个使用C++写的基于光线追踪算法的渲染器&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/Aurora&#34;&gt;Aurora&lt;/a&gt; 一个使用C++写的光栅化渲染器&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/Game-of-Life&#34;&gt;Game-of-Life&lt;/a&gt; 一个模拟康威生命游戏的软件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;竞赛奖项&#34;&gt;竞赛奖项&lt;/h1&gt;
+
+&lt;h1 id=&#34;教育经历&#34;&gt;教育经历&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;哈尔滨工业大学（威海）&lt;/li&gt;
+&lt;li&gt;湖南省株洲市第二中学&lt;/li&gt;
+&lt;li&gt;株洲景炎学校&lt;/li&gt;
+&lt;/ul&gt;
 </description>
       
     </item>
