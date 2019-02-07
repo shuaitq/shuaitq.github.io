@@ -63,6 +63,127 @@
     </item>
     
     <item>
+      <title>rle文件格式</title>
+      <link>https://shuaitq.github.io/post/rle%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuaitq.github.io/post/rle%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</guid>
+      
+        <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+
+&lt;p&gt;之所以会了解到.rle文件，是因为在重构&lt;a href=&#34;https://github.com/shuaitq/Game-of-Life&#34;&gt;Game-of-Life&lt;/a&gt;的时候找到了一个关于生命游戏的Wiki：&lt;a href=&#34;http://conwaylife.com/wiki/Main_Page&#34;&gt;LifeWiki&lt;/a&gt;。在这个Wiki上面查阅了很多资料，发现这个网站关于生命游戏的资料非常全而且准确。然后在查着资料的时候突然注意到了在首页的一个下载图标&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shuaitq.github.io/image/download_pattern.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;根据我对生命游戏的了解，当时猜测应该是类似保存生命的文件。然后就下载了下来看了看，发现里面有2000+个各式各样的生命游戏里的生命，而且都按照.rle文件格式保存，格式规范。于是我就决定抛弃之前使用手写json文件来输入生命初始状态的方法。毕竟支持了.rle就意味着有着一大堆开箱即用的生命（&lt;del&gt;真香&lt;/del&gt;）&lt;/p&gt;
+
+&lt;h1 id=&#34;run-length-encoding主要思路&#34;&gt;Run-length encoding主要思路&lt;/h1&gt;
+
+&lt;p&gt;整个RLE的出发点用Wikipedia上的一个例子非常容易讲清楚，比如你现在有一个文件内容如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWBWWWWWWWWWWWWWW&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;你想要让它占用的空间尽可能的小且仍然保持人的可读性，然后你发现这个字符串只有英文字符而且字符串中的重复度非常的高，经常是很长一串的同一个字符。于是你就想出了以下的办法，把超过一个的重复字符用&amp;lt;数量&amp;gt;&amp;lt;字符&amp;gt;来表示。于是字符串就变成了下面这个样子&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;12W1B12W3B24W1B14W&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;明显字符串长度减少了很多，而且仍然保持了人的可读性。整个RLE的主要思路就在这了。&lt;/p&gt;
+
+&lt;h1 id=&#34;rle文件的格式&#34;&gt;.rle文件的格式&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;#N Quasar
+#O Robert Wainwright
+#C A period 3 oscillator found in August 1971 that is quite similar to
+#C the pulsar.
+#C www.conwaylife.com/wiki/index.php?title=Quasar
+x = 29, y = 29, rule = B3/S23
+10b3o3b3o10b2$8bo4bobo4bo8b$8bo4bobo4bo8b$8bo4bobo4bo8b$10b3o3b3o10b2$
+8b3o7b3o8b$2b3o2bo4bo3bo4bo2b3o2b$7bo4bo3bo4bo7b$o4bobo4bo3bo4bobo4bo$
+o4bo17bo4bo$o4bo2b3o7b3o2bo4bo$2b3o19b3o2b2$2b3o19b3o2b$o4bo2b3o7b3o2b
+o4bo$o4bo17bo4bo$o4bobo4bo3bo4bobo4bo$7bo4bo3bo4bo7b$2b3o2bo4bo3bo4bo
+2b3o2b$8b3o7b3o8b2$10b3o3b3o10b$8bo4bobo4bo8b$8bo4bobo4bo8b$8bo4bobo4b
+o8b2$10b3o3b3o!&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;.rle文件就是根据RLE思路设计的一个文件格式，上面是一个典型的.rle文件，其中主要可以分为三部分&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;注释区，所有以#开头的都是注释，在解析的时候直接丢弃就可以了。&lt;/li&gt;
+&lt;li&gt;头部区，在除掉注释的第一行就是头部，按照以下格式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;x = 宽, y = 高, rule = 规则&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;内容区，按照RLE生成，b代表死细胞，o代表活细胞，$代表每行的结束。其中需要注意的是几点是
+
+&lt;ol&gt;
+&lt;li&gt;每行最后的死细胞直接忽略，不参与编码，因为不需要。&lt;/li&gt;
+&lt;li&gt;当重复的只有一个的时候忽略前面的数字1。&lt;/li&gt;
+&lt;li&gt;所有b、o、$都参与编码，即会出现2$这种情况，表示有一行全是死细胞。&lt;/li&gt;
+&lt;li&gt;最后以!标识内容区的结尾，后面的内容应该全部忽略。&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;坑&#34;&gt;坑&lt;/h1&gt;
+
+&lt;p&gt;整个东西看懂之后还是很好实现的，就是规则部分可能是因为有太多软件使用到了这个格式作为导出格式。导致其中有一些软件夹带了一些私货或者不符合标准的东西在里面，为了能够兼容尽量多的.rle文件于是把所有在使用过程中遇到的格式都进行了兼容。&lt;/p&gt;
+
+&lt;p&gt;有以下几种：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;x = 79, y = 21, rule = b3/s23
+x = 7, y = 13, rule = B3/S23
+x = 35, y = 52, rule = B3/S23:T35,52
+x = 100, y = 100, rule = B3/S23:C100,100
+x = 100, y = 100, rule = B3/S23:P100,100
+x = 9, y = 11, rule = 23/3
+x = 75, y = 61, rule = s23/b3&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://conwaylife.com/wiki/RLE&#34;&gt;Run Length Encoded - LifeWiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Run-length_encoding&#34;&gt;Run-leng`th encoding - Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+    </item>
+    
+    <item>
       <title>Hello Hugo</title>
       <link>https://shuaitq.github.io/post/hello-hugo/</link>
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
@@ -1040,10 +1161,10 @@
     
     <item>
       <title>Noip初赛结束</title>
-      <link>https://shuaitq.github.io/post/noip%E5%88%9D%E8%B5%9B%E7%BB%93%E6%9D%9F-/</link>
+      <link>https://shuaitq.github.io/post/noip%E5%88%9D%E8%B5%9B%E7%BB%93%E6%9D%9F/</link>
       <pubDate>Sun, 31 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://shuaitq.github.io/post/noip%E5%88%9D%E8%B5%9B%E7%BB%93%E6%9D%9F-/</guid>
+      <guid>https://shuaitq.github.io/post/noip%E5%88%9D%E8%B5%9B%E7%BB%93%E6%9D%9F/</guid>
       
         <description>&lt;p&gt;按道理来说这个这个不应该写出来，毕竟初赛那么简单，但是我还是做一下总结，因为我在初赛中还是发现了一些自己依然不了解的知识点。成绩自己预计有66分左右，这让我无限感叹：还是湖南好，不像浙江省90+的初赛线，还让不让人活了。看来湖南除了高考分数线高以外还是有一点优点的。&lt;/p&gt;
 
