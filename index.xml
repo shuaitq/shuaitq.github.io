@@ -63,6 +63,148 @@
     </item>
     
     <item>
+      <title>生命游戏</title>
+      <link>https://shuaitq.github.io/post/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuaitq.github.io/post/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/</guid>
+      
+        <description>&lt;p&gt;以下谈到的项目在&lt;a href=&#34;https://github.com/shuaitq/Game-of-Life&#34;&gt;GitHub:shuaitq/Game-of-Life&lt;/a&gt;可以找到全部源码&lt;/p&gt;
+
+&lt;h1 id=&#34;生命游戏&#34;&gt;生命游戏&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;康威生命游戏（英语：Conway&amp;rsquo;s Game of Life），又称康威生命棋，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。它最初于1970年10月在《科学美国人》杂志上马丁·葛登能的“数学游戏”专栏出现。
+——维基百科&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;维基百科链接&lt;a href=&#34;https://en.wikipedia.org/wiki/Conway&#39;s_Game_of_Life&#34;&gt;Conway&amp;rsquo;s Game of Life&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;简而言之就是，在一个二维空间内每一个格子就是一个「细胞」，每个细胞存在着两种状态，生和死，并通过一定的规则进行演算的结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/e/e5/Gospers_glider_gun.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;规则&#34;&gt;规则&lt;/h1&gt;
+
+&lt;h2 id=&#34;最为经典的-b3s23&#34;&gt;最为经典的「B3S23」&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;当前细胞为存活状态时，当周围八个细胞低于2个（不包含2个）存活细胞时， 该细胞变成死亡状态。（模拟生命数量稀少）&lt;/li&gt;
+&lt;li&gt;当前细胞为存活状态时，当周围八个细胞有2个或3个存活细胞时， 该细胞保持原样。&lt;/li&gt;
+&lt;li&gt;当前细胞为存活状态时，当周围八个细胞有3个以上的存活细胞时，该细胞变成死亡状态。（模拟生命数量过多）&lt;/li&gt;
+&lt;li&gt;当前细胞为死亡状态时，当周围八个细胞有3个存活细胞时，该细胞变成存活状态。 （模拟繁殖）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;就这样简单的规则和初始状态决定了生命游戏的发展。&lt;/p&gt;
+
+&lt;h1 id=&#34;各种各样的生命&#34;&gt;各种各样的生命&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shuaitq.github.io/image/otcametapixel.png&#34; width=&#34;200pt&#34; height=&#34;200pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/wings.gif&#34; width=&#34;200pt&#34; height=&#34;200pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/stilllifes.png&#34; width=&#34;216pt&#34; height=&#34;152pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/stargate.gif&#34; width=&#34;232.5pt&#34; height=&#34;189pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/toggleable.gif&#34; width=&#34;270pt&#34; height=&#34;223.5pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/tnosedp4on56p27.gif&#34; width=&#34;170pt&#34; height=&#34;160pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/quasar.gif&#34; width=&#34;200pt&#34; height=&#34;200pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/quasar2.gif&#34; width=&#34;200pt&#34; height=&#34;200pt&#34;&gt;
+&lt;img src=&#34;https://shuaitq.github.io/image/quasar3.gif&#34; width=&#34;200pt&#34; height=&#34;200pt&#34;&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;生命游戏项目&#34;&gt;生命游戏项目&lt;/h1&gt;
+
+&lt;p&gt;这个项目是用来进行生命游戏的模拟，这已经是第二版了。第一版的时候采用的是Json格式文件存储生命游戏的初始状态和各种参数，所有的想要用的生命都要去网上找到图然后输入到Json文件中，很麻烦&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;height&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1080&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                  &lt;span class=&#34;err&#34;&gt;高&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;width&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1920&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                   &lt;span class=&#34;err&#34;&gt;宽&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                     &lt;span class=&#34;err&#34;&gt;迭代次数&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;path&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;photo/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                &lt;span class=&#34;err&#34;&gt;图片存放位置&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;rand&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                    &lt;span class=&#34;err&#34;&gt;是否随机&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;rules&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;    &lt;span class=&#34;err&#34;&gt;规则&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;#34;screen&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;        &lt;span class=&#34;err&#34;&gt;页面初始化参数&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+              &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;而在这一次重构时发现了rle通用文件格式，已经有大量以rle格式存储的生命文件，于是选择了取消Json文件，改用rle文件，多余的参数采用getopt进行读取。关于rle文件的具体解析过程可以看&lt;a href=&#34;https://shuaitq.github.io/post/rle%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/&#34;&gt;上一篇博客&lt;/a&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rle&#34; data-lang=&#34;rle&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rle&#34; data-lang=&#34;rle&#34;&gt;#N Quasar
+#O Robert Wainwright
+#C A period 3 oscillator found in August 1971 that is quite similar to
+#C the pulsar.
+#C www.conwaylife.com/wiki/index.php?title=Quasar
+x = 29, y = 29, rule = B3/S23
+10b3o3b3o10b2$8bo4bobo4bo8b$8bo4bobo4bo8b$8bo4bobo4bo8b$10b3o3b3o10b2$
+8b3o7b3o8b$2b3o2bo4bo3bo4bo2b3o2b$7bo4bo3bo4bo7b$o4bobo4bo3bo4bobo4bo$
+o4bo17bo4bo$o4bo2b3o7b3o2bo4bo$2b3o19b3o2b2$2b3o19b3o2b$o4bo2b3o7b3o2b
+o4bo$o4bo17bo4bo$o4bobo4bo3bo4bobo4bo$7bo4bo3bo4bo7b$2b3o2bo4bo3bo4bo
+2b3o2b$8b3o7b3o8b2$10b3o3b3o10b$8bo4bobo4bo8b$8bo4bobo4bo8b$8bo4bobo4b
+o8b2$10b3o3b3o!&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;当时第一版的时候重点使用了多线程和异步化存储来优化性能，第二版取消了这些优化，转而使用淳朴的单线程一方面是我发现计算性能并不是瓶颈，瓶颈主要在硬盘IO上，另一方面是&lt;del&gt;我懒&lt;/del&gt;。所以这次的重点放在了rle文件的解析上面，毕竟只要支持了rle文件就再也不用手动编写生命游戏的生命模板了&lt;del&gt;（逃&lt;/del&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;主要改变&#34;&gt;主要改变&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;能够读取通用rle模式文件&lt;/li&gt;
+&lt;li&gt;使用方法 ./Game.out -p [RLE文件目录] -t [模拟次数]&lt;/li&gt;
+&lt;li&gt;支持标准规则表示法B3/S23&lt;/li&gt;
+&lt;li&gt;使用PPM图片格式作为输出&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;感谢&#34;&gt;感谢&lt;/h1&gt;
+
+&lt;p&gt;感谢&lt;a href=&#34;http://www.conwaylife.com/wiki/Main_Page&#34;&gt;LifeWiki&lt;/a&gt;完整的各种资料，包括且不限于：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;完整的RLE文件格式文档。&lt;/li&gt;
+&lt;li&gt;巨量的RLE模式文件总计2000+，和各个模式的资料。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://conwaylife.com/wiki/Main_Page&#34;&gt;LifeWiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Game_of_life&#34;&gt;Conway&amp;rsquo;s Game of Life - Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+    </item>
+    
+    <item>
       <title>rle文件格式</title>
       <link>https://shuaitq.github.io/post/rle%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</link>
       <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
@@ -96,7 +238,7 @@
 &lt;h1 id=&#34;rle文件的格式&#34;&gt;.rle文件的格式&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rle&#34; data-lang=&#34;rle&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
@@ -108,9 +250,9 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;#N Quasar
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rle&#34; data-lang=&#34;rle&#34;&gt;#N Quasar
 #O Robert Wainwright
 #C A period 3 oscillator found in August 1971 that is quite similar to
 #C the pulsar.
@@ -121,7 +263,7 @@ x = 29, y = 29, rule = B3/S23
 o4bo17bo4bo$o4bo2b3o7b3o2bo4bo$2b3o19b3o2b2$2b3o19b3o2b$o4bo2b3o7b3o2b
 o4bo$o4bo17bo4bo$o4bobo4bo3bo4bobo4bo$7bo4bo3bo4bo7b$2b3o2bo4bo3bo4bo
 2b3o2b$8b3o7b3o8b2$10b3o3b3o10b$8bo4bobo4bo8b$8bo4bobo4bo8b$8bo4bobo4b
-o8b2$10b3o3b3o!&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+o8b2$10b3o3b3o!&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;.rle文件就是根据RLE思路设计的一个文件格式，上面是一个典型的.rle文件，其中主要可以分为三部分&lt;/p&gt;

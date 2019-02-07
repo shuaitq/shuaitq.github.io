@@ -6,10 +6,32 @@
     <description>Recent content in 生命游戏 on Tom Smith&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://shuaitq.github.io/tags/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>生命游戏</title>
+      <link>https://shuaitq.github.io/post/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Mon, 04 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuaitq.github.io/post/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/</guid>
+      <description>&lt;p&gt;以下谈到的项目在&lt;a href=&#34;https://github.com/shuaitq/Game-of-Life&#34;&gt;GitHub:shuaitq/Game-of-Life&lt;/a&gt;可以找到全部源码&lt;/p&gt;
+
+&lt;h1 id=&#34;生命游戏&#34;&gt;生命游戏&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;康威生命游戏（英语：Conway&amp;rsquo;s Game of Life），又称康威生命棋，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。它最初于1970年10月在《科学美国人》杂志上马丁·葛登能的“数学游戏”专栏出现。
+——维基百科&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;维基百科链接&lt;a href=&#34;https://en.wikipedia.org/wiki/Conway&#39;s_Game_of_Life&#34;&gt;Conway&amp;rsquo;s Game of Life&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;简而言之就是，在一个二维空间内每一个格子就是一个「细胞」，每个细胞存在着两种状态，生和死，并通过一定的规则进行演算的结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/e/e5/Gospers_glider_gun.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>rle文件格式</title>
