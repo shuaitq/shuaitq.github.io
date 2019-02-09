@@ -6,10 +6,23 @@
     <description>Recent content in Github on Tom Smith&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 09 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://shuaitq.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>光栅化渲染器</title>
+      <link>https://shuaitq.github.io/post/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuaitq.github.io/post/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/</guid>
+      <description>&lt;p&gt;以下谈到的项目在&lt;a href=&#34;https://github.com/shuaitq/Aurora&#34;&gt;GitHub:shuaitq/Aurora&lt;/a&gt;可以找到全部源码&lt;/p&gt;
+
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+
+&lt;p&gt;这个东西其实是在大一寒假自学计算机图形学鼓捣出来的，后面被拿去当大一年度项目水了水，终检的时候老师也没有太多的反映，也不知道老师看懂了没，反正最后就水过了也是挺开心的。不过为什么这个时候才来写了这篇博客呢？当然是来填坑的啦，当时做完就直接丢到GitHub上没管了，各种东西都没搞，有几个用户体验的痛点功能也没有做，反正项目通过了就行了（&lt;del&gt;逃&lt;/del&gt;。正如那句话说得好，挖的坑迟早要填的，于是我就回来填这个坑了233。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>生命游戏</title>

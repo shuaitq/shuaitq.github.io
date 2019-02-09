@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>光栅化渲染器 - Tom Smith&#39;s</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="Tom Smith" />
+  <meta name="description" content="以下谈到的项目在GitHub:shuaitq/Aurora可以找到全部源码
+前言 这个东西其实是在大一寒假自学计算机图形学鼓捣出来的，后面被拿去当大一年度项目水了水，终检的时候老师也没有太多的反映，也不知道老师看懂了没，反正最后就水过了也是挺开心的。不过为什么这个时候才来写了这篇博客呢？当然是来填坑的啦，当时做完就直接丢到GitHub上没管了，各种东西都没搞，有几个用户体验的痛点功能也没有做，反正项目通过了就行了（逃。正如那句话说得好，挖的坑迟早要填的，于是我就回来填这个坑了233。
+" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53" />
+
+
+<link rel="canonical" href="https://shuaitq.github.io/post/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.19ae5a432863a072ec64433bb1020bd6d3401129f87d6f2ad5af3bcfd84168a1.css" integrity="sha256-Ga5aQyhjoHLsZEM7sQIL1tNAESn4fW8q1a87z9hBaKE=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="光栅化渲染器" />
+<meta property="og:description" content="以下谈到的项目在GitHub:shuaitq/Aurora可以找到全部源码
+
+前言
+
+这个东西其实是在大一寒假自学计算机图形学鼓捣出来的，后面被拿去当大一年度项目水了水，终检的时候老师也没有太多的反映，也不知道老师看懂了没，反正最后就水过了也是挺开心的。不过为什么这个时候才来写了这篇博客呢？当然是来填坑的啦，当时做完就直接丢到GitHub上没管了，各种东西都没搞，有几个用户体验的痛点功能也没有做，反正项目通过了就行了（逃。正如那句话说得好，挖的坑迟早要填的，于是我就回来填这个坑了233。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://shuaitq.github.io/post/%E5%85%89%E6%A0%85%E5%8C%96%E6%B8%B2%E6%9F%93%E5%99%A8/" /><meta property="article:published_time" content="2019-02-09T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-02-09T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="光栅化渲染器">
+<meta itemprop="description" content="以下谈到的项目在GitHub:shuaitq/Aurora可以找到全部源码
+
+前言
+
+这个东西其实是在大一寒假自学计算机图形学鼓捣出来的，后面被拿去当大一年度项目水了水，终检的时候老师也没有太多的反映，也不知道老师看懂了没，反正最后就水过了也是挺开心的。不过为什么这个时候才来写了这篇博客呢？当然是来填坑的啦，当时做完就直接丢到GitHub上没管了，各种东西都没搞，有几个用户体验的痛点功能也没有做，反正项目通过了就行了（逃。正如那句话说得好，挖的坑迟早要填的，于是我就回来填这个坑了233。">
+
+
+<meta itemprop="datePublished" content="2019-02-09T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-02-09T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2074">
+
+
+
+<meta itemprop="keywords" content="C&#43;&#43;,光栅化,渲染,GitHub,json," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="光栅化渲染器"/>
+<meta name="twitter:description" content="以下谈到的项目在GitHub:shuaitq/Aurora可以找到全部源码
+
+前言
+
+这个东西其实是在大一寒假自学计算机图形学鼓捣出来的，后面被拿去当大一年度项目水了水，终检的时候老师也没有太多的反映，也不知道老师看懂了没，反正最后就水过了也是挺开心的。不过为什么这个时候才来写了这篇博客呢？当然是来填坑的啦，当时做完就直接丢到GitHub上没管了，各种东西都没搞，有几个用户体验的痛点功能也没有做，反正项目通过了就行了（逃。正如那句话说得好，挖的坑迟早要填的，于是我就回来填这个坑了233。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+ </script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Tom Smith&#39;s</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/about/">About</a>
+          
+        
+      </li>
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Tom Smith&#39;s
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://shuaitq.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">光栅化渲染器</h1>
+      
+      <div class="post-meta">
+        <time datetime="2019-02-09" class="post-time">
+          2019-02-09
+        </time>
+        <div class="post-category">
+            <a href="https://shuaitq.github.io/categories/%E7%BC%96%E7%A8%8B/"> 编程 </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#光栅化">光栅化</a></li>
+<li><a href="#为什么选择固定管线实现">为什么选择固定管线实现</a></li>
+<li><a href="#重点部分及实现">重点部分及实现</a>
+<ul>
+<li><a href="#使用json格式定义场景-相机-灯光等参数">使用json格式定义场景、相机、灯光等参数</a></li>
+<li><a href="#采用obj模型-ppm图片贴图-二次线性差值进行采样">采用obj模型，ppm图片贴图，二次线性差值进行采样</a></li>
+<li><a href="#支持方向光和点光源两种光源">支持方向光和点光源两种光源</a>
+<ul>
+<li><a href="#方向光">方向光</a></li>
+<li><a href="#点光源">点光源</a></li>
+</ul></li>
+<li><a href="#z-buffer保证渲染正确的顺序-背面消影和三角形剔除-未实现三角形裁剪">Z-Buffer保证渲染正确的顺序，背面消影和三角形剔除(<del>未实现三角形裁剪</del>)</a>
+<ul>
+<li><a href="#z-buffer">Z-Buffer</a></li>
+<li><a href="#背面消隐">背面消隐</a></li>
+<li><a href="#三角形剔除">三角形剔除</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#渲染结果">渲染结果</a>
+<ul>
+<li><a href="#不同贴图">不同贴图</a></li>
+<li><a href="#斯坦福兔子">斯坦福兔子</a></li>
+<li><a href="#不同光源-平行光和点光源">不同光源 （平行光和点光源</a></li>
+<li><a href="#彩色光源叠加-左边黄色平行光-右边蓝色点光源">彩色光源叠加 （左边黄色平行光，右边蓝色点光源</a></li>
+</ul></li>
+<li><a href="#配置文件格式">配置文件格式</a></li>
+<li><a href="#参考">参考</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>以下谈到的项目在<a href="https://github.com/shuaitq/Aurora">GitHub:shuaitq/Aurora</a>可以找到全部源码</p>
+
+<h1 id="前言">前言</h1>
+
+<p>这个东西其实是在大一寒假自学计算机图形学鼓捣出来的，后面被拿去当大一年度项目水了水，终检的时候老师也没有太多的反映，也不知道老师看懂了没，反正最后就水过了也是挺开心的。不过为什么这个时候才来写了这篇博客呢？当然是来填坑的啦，当时做完就直接丢到GitHub上没管了，各种东西都没搞，有几个用户体验的痛点功能也没有做，反正项目通过了就行了（<del>逃</del>。正如那句话说得好，挖的坑迟早要填的，于是我就回来填这个坑了233。</p>
+
+<h1 id="光栅化">光栅化</h1>
+
+<p>看到光栅化这个词大多数人可能会都不太清楚这个干嘛的。其实这个东西在大家生活中非常常见，除了离线渲染在好多年前就上了光线追踪以外，不管是游戏、字体渲染还是电脑建模、渲染，实际上都离不开光栅化。那光栅化是什么呢，如下图所示，光栅化其实就是把模型的一个三角面编程屏幕上覆盖的像素点。</p>
+
+<p><img src="/image/rasterization.png" alt="" /></p>
+
+<p>但是这样其实是有坏处的，因为这种方法并没有真正的模拟光的传播，导致光影效果一直很难做，包括且不止：软阴影、镜面反射、玻璃透射、水面。就算用了各种trick的方式做到了，也和现实物理相差甚远。但大家为什么都“喜欢”这么做呢，因为快啊，基于光线追踪渲染的话计算量太大，根本远远满足不了每秒60帧的要求。俗话说的好：巧妇难为无米之炊，没办法大家只好用这种方法度过了这么多年。这也就是为什么光栅化到现在还是在线渲染的大霸主。</p>
+
+<h1 id="为什么选择固定管线实现">为什么选择固定管线实现</h1>
+
+<p>图形管线其实分了两种，固定管线和可编程管线。为什么选择固定管线呢，并不是因为<del>我懒，真的</del>。只是我找到学习图形学的书<a href="https://www.amazon.cn/dp/B008IBDL68">3D游戏编程大师技巧</a>是2012年7月13日出版的，而且还是翻译版。所以我一开始只知道固定管线，并不知道有可编程管线这种东西，所以也就没多想，就按照固定管线实现了。</p>
+
+<h1 id="重点部分及实现">重点部分及实现</h1>
+
+<h2 id="使用json格式定义场景-相机-灯光等参数">使用json格式定义场景、相机、灯光等参数</h2>
+
+<p>为了能够方便的定义场景，设置场景里的模型、相机、灯光等参数。采用了json格式文件定义场景，并采用<a href="https://github.com/nlohmann/json">nlohmann/json</a>库对定义的场景进行解析。具体场景文件格式可以参看<a href="/post/光栅化渲染器/#配置文件格式">配置文件格式</a></p>
+
+<h2 id="采用obj模型-ppm图片贴图-二次线性差值进行采样">采用obj模型，ppm图片贴图，二次线性差值进行采样</h2>
+
+<p>渲染器采用的3D模型格式是obj，这是一种非常常见的3D模型格式，也很好解析，就是有很多软件的私货。于是我选择了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">usemtl chess.ppm</pre></td></tr></table>
+</div>
+</div>
+<p>这样的添加来作为模型贴图的支持。贴图因为并没有支持什么mipmap、法线贴图的高端技术所以直接使用一个图片就行，正好之前用到了ppm图片格式的解析，于是拿来改了改就直接用了。</p>
+
+<p>而二次线性差值呢，就按照取样点四周四个像素的加权平均来算的，权值呢就是离每个像素的距离，使用平铺纹理坐标寻址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">RGB_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">Texture</span><span class="o">::</span><span class="n">Sample</span><span class="p">(</span><span class="kt">double</span> <span class="n">u</span><span class="p">,</span> <span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">pixels</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">RGB_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">0.9</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// (-inf, +inf)
+</span><span class="c1"></span>    <span class="n">u</span> <span class="o">*=</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">v</span> <span class="o">*=</span> <span class="n">size</span><span class="p">;</span>
+    <span class="c1">// (-inf * size, +inf * size)
+</span><span class="c1"></span>    <span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">u</span> <span class="o">+</span> <span class="n">a</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">%</span> <span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">size</span><span class="p">)</span> <span class="o">%</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">((</span><span class="n">y</span> <span class="o">%</span> <span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">size</span><span class="p">)</span> <span class="o">%</span> <span class="n">size</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">pixels</span><span class="p">[</span><span class="n">size</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">fabs</span><span class="p">((</span><span class="n">u</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="n">floor</span><span class="p">(</span><span class="n">u</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">))</span> <span class="o">*</span> <span class="n">fabs</span><span class="p">((</span><span class="n">v</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">floor</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">));</span>
+    <span class="p">};</span>
+    <span class="n">RGB_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">ret</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">ret</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">ret</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="支持方向光和点光源两种光源">支持方向光和点光源两种光源</h2>
+
+<p>有一个Light类有光照接口的定义，可以继承这个类实现各种各样的光照类型，我这里实现了方向光和点光源，其中点光源我实现的是按照距离的平方衰减的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">virtual</span> <span class="n">RGB_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">Sample</span><span class="p">(</span><span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="方向光">方向光</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">RGB_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">DirectLight</span><span class="o">::</span><span class="n">Sample</span><span class="p">(</span><span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">NdotD</span> <span class="o">=</span> <span class="n">Dot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">VD</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">color</span> <span class="o">*</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">NdotD</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="点光源">点光源</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">RGB_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">PointLight</span><span class="o">::</span><span class="n">Sample</span><span class="p">(</span><span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">length2</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">VP</span><span class="p">).</span><span class="n">Length2</span><span class="p">();</span>
+    <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">direction</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">VP</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">NdotD</span> <span class="o">=</span> <span class="n">Dot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">direction</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">color</span> <span class="o">*</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">NdotD</span><span class="p">)</span> <span class="o">/</span> <span class="n">length2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="z-buffer保证渲染正确的顺序-背面消影和三角形剔除-未实现三角形裁剪">Z-Buffer保证渲染正确的顺序，背面消影和三角形剔除(<del>未实现三角形裁剪</del>)</h2>
+
+<h3 id="z-buffer">Z-Buffer</h3>
+
+<p>Z-Buffer我是创建了一个double类型的vector分辨率和输出分辨率一样来存储z值即深度。在每次渲染新的像素到结果的时候都会判断一下当前z值是否比之前的小，小就代表在之前像素的前面，这样就可以正确的实现先后顺序。这里因为z值预先变成了1/z所以是&gt;=。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">if</span><span class="p">(</span><span class="n">OnePreZ</span> <span class="o">&gt;=</span> <span class="n">depth</span><span class="p">[</span><span class="n">y</span> <span class="o">*</span> <span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">])</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="背面消隐">背面消隐</h3>
+
+<p>背面消隐就是转换到相机空间的时候对三角面的三个顶点按照一定顺序做一个叉积，根据叉积的结果判断这个面是正面朝相机还是反面朝相机，如果反面朝向相机直接丢弃即可，不需要渲染。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="kt">bool</span> <span class="n">Render</span><span class="o">::</span><span class="n">IsBackFace</span><span class="p">(</span><span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v0</span><span class="p">,</span> <span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Vector4D_T</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">Dot</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">Cross</span><span class="p">(</span><span class="n">v1</span> <span class="o">-</span> <span class="n">v0</span><span class="p">,</span> <span class="n">v2</span> <span class="o">-</span> <span class="n">v0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="三角形剔除">三角形剔除</h3>
+
+<p>三角形剔除呢，这里只做了最简单的三角形剔除，就是把近裁剪面和远裁剪面之间的保留下来，其他的面全部剔除。而且并没有实现裁剪功能，越过近裁剪面和远裁剪面的三角面会直接整体被剔除。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">if</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point</span><span class="p">.</span><span class="n">z</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point</span><span class="p">.</span><span class="n">z</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">OutOfRange</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="渲染结果">渲染结果</h1>
+
+<h2 id="不同贴图">不同贴图</h2>
+
+<p><img src="/image/chess_cube.png" width="350pt" height="196.875pt">
+<img src="/image/chess_sphere.png" width="350pt" height="196.875pt">
+<img src="/image/wood_cube.png" width="350pt" height="196.875pt">
+<img src="/image/wood_sphere.png" width="350pt" height="196.875pt">
+<img src="/image/marble_cube.png" width="350pt" height="196.875pt">
+<img src="/image/marble_sphere.png" width="350pt" height="196.875pt"></p>
+
+<h2 id="斯坦福兔子">斯坦福兔子</h2>
+
+<p><img src="/image/bunny.png" width="350pt" height="196.875pt"></p>
+
+<h2 id="不同光源-平行光和点光源">不同光源 （平行光和点光源</h2>
+
+<p><img src="/image/direct_light_bunny.png" width="350pt" height="196.875pt">
+<img src="/image/point_light_bunny.png" width="350pt" height="196.875pt"></p>
+
+<h2 id="彩色光源叠加-左边黄色平行光-右边蓝色点光源">彩色光源叠加 （左边黄色平行光，右边蓝色点光源</h2>
+
+<p><img src="/image/colorful_bunny.png" width="350pt" height="196.875pt"></p>
+
+<h1 id="配置文件格式">配置文件格式</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;width&#34;</span> <span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>                                         <span class="err">宽</span>
+    <span class="nt">&#34;height&#34;</span> <span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>                                        <span class="err">高</span>
+    <span class="nt">&#34;camera&#34;</span> <span class="p">:{</span>                                             <span class="err">相机参数</span>
+        <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.800000</span><span class="p">,</span> <span class="mf">0.800000</span><span class="p">,</span> <span class="mf">0.800000</span><span class="p">],</span>        <span class="err">位置</span>
+        <span class="nt">&#34;u&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.707106</span><span class="p">,</span> <span class="mf">-0.707106</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>                     <span class="err">右向量</span>
+        <span class="nt">&#34;v&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.408248</span><span class="p">,</span> <span class="mf">-0.408248</span><span class="p">,</span> <span class="mf">0.816496</span><span class="p">],</span>             <span class="err">上向量</span>
+        <span class="nt">&#34;n&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.577349</span><span class="p">,</span> <span class="mf">-0.577349</span><span class="p">,</span> <span class="mf">-0.577349</span><span class="p">],</span>            <span class="err">前向量</span>
+        <span class="nt">&#34;fov&#34;</span> <span class="p">:</span> <span class="mi">80</span><span class="p">,</span>                                         <span class="err">视角</span>
+        <span class="nt">&#34;near&#34;</span> <span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>                                       <span class="err">近裁剪面</span>
+        <span class="nt">&#34;far&#34;</span> <span class="p">:</span> <span class="mi">1000</span>                                        <span class="err">远裁剪面</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;object&#34;</span> <span class="p">:[</span>                                             <span class="err">模型参数</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;path&#34;</span> <span class="p">:</span> <span class="s2">&#34;cube.obj&#34;</span><span class="p">,</span>                            <span class="err">obj文件目录</span>
+            <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">],</span>    <span class="err">位置</span>
+            <span class="nt">&#34;u&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>                                <span class="err">同相机</span>
+            <span class="nt">&#34;v&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="nt">&#34;n&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;light&#34;</span> <span class="p">:[</span>                                              <span class="err">光源参数</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;DirectLight&#34;</span><span class="p">,</span>                         <span class="err">方向光</span>
+            <span class="nt">&#34;direction&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.267261</span><span class="p">,</span> <span class="mf">-0.534522</span><span class="p">,</span> <span class="mf">-0.801784</span><span class="p">],</span><span class="err">方向</span>
+            <span class="nt">&#34;color&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>                             <span class="err">颜色</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;PointLight&#34;</span><span class="p">,</span>                          <span class="err">点光源</span>
+            <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>                         <span class="err">位置</span>
+            <span class="nt">&#34;color&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>                       <span class="err">颜色</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="参考">参考</h1>
+
+<p><a href="https://www.amazon.cn/dp/B008IBDL68">3D游戏编程大师技巧</a></p>
+    </div>
+
+    
+    
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://shuaitq.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+          <a href="https://shuaitq.github.io/tags/%E5%85%89%E6%A0%85%E5%8C%96/">光栅化</a>
+          <a href="https://shuaitq.github.io/tags/%E6%B8%B2%E6%9F%93/">渲染</a>
+          <a href="https://shuaitq.github.io/tags/github/">GitHub</a>
+          <a href="https://shuaitq.github.io/tags/json/">json</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/">
+            <span class="next-text nav-default">生命游戏</span>
+            <span class="prev-text nav-mobile">Next</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+  
+  
+    
+
+
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="mailto:1101282468@qq.com" rel="me noopener" class="iconfont"
+      title="email" >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://github.com/shuaitq" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://shuaitq.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2015 -
+    2019
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        Tom Smith
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
