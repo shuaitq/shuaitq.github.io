@@ -85,7 +85,7 @@
 
 &lt;h1 id=&#34;为什么选择固定管线实现&#34;&gt;为什么选择固定管线实现&lt;/h1&gt;
 
-&lt;p&gt;图形管线其实分了两种，固定管线和可编程管线。为什么选择固定管线呢，并不是因为&lt;del&gt;我懒，真的&lt;/del&gt;。只是我找到学习图形学的书&lt;a href=&#34;https://www.amazon.cn/dp/B008IBDL68&#34;&gt;3D游戏编程大师技巧&lt;/a&gt;是2012年7月13日出版的，而且还是翻译版。所以我一开始只知道固定管线，并不知道有可编程管线这种东西，所以也就没多想，就按照固定管线实现了。&lt;/p&gt;
+&lt;p&gt;图形管线其实分了两种，固定管线和可编程管线。为什么选择固定管线呢，并不是因为&lt;del&gt;我懒，真的&lt;/del&gt;。只是我找到学习图形学的书&lt;a href=&#34;https://www.amazon.cn/dp/B008IBDL68&#34;&gt;《3D游戏编程大师技巧》&lt;/a&gt;是2012年7月13日出版的，而且还是翻译版。所以我一开始只知道固定管线，并不知道有可编程管线这种东西，所以也就没多想，就按照固定管线实现了。&lt;/p&gt;
 
 &lt;h1 id=&#34;重点部分及实现&#34;&gt;重点部分及实现&lt;/h1&gt;
 
@@ -380,7 +380,7 @@
 &lt;/div&gt;
 &lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://www.amazon.cn/dp/B008IBDL68&#34;&gt;3D游戏编程大师技巧&lt;/a&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;a href=&#34;https://www.amazon.cn/dp/B008IBDL68&#34;&gt;《3D游戏编程大师技巧》&lt;/a&gt;&lt;/p&gt;</description>
       
     </item>
     
