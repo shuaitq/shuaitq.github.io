@@ -38,13 +38,13 @@
 
 &lt;p&gt;开发环境： Fedora + VS Code + 编译器&lt;/p&gt;
 
-&lt;p&gt;编程语言： C++ = C &amp;gt; Java = Python = Go &amp;gt; Haskell &amp;gt; Rust&lt;/p&gt;
+&lt;p&gt;编程语言： C++ with C++11 = C &amp;gt; Java = Python = Go &amp;gt; Haskell &amp;gt; Rust&lt;/p&gt;
 
 &lt;h1 id=&#34;项目&#34;&gt;项目&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/MIPS-CPU&#34;&gt;MIPS-CPU&lt;/a&gt; 一个使用Verilog语言开发的，基于MIPS32 Release 1指令集的五级流水CPU&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/MoonLight&#34;&gt;MoonLight&lt;/a&gt; 一个使用C++写的基于光线追踪算法的渲染器&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/MIPS-CPU&#34;&gt;MIPS-CPU&lt;/a&gt; 一个使用Verilog语言开发的，基于MIPS32 Release 1指令集的五级流水CPU&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/Aurora&#34;&gt;Aurora&lt;/a&gt; 一个使用C++写的光栅化渲染器&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/shuaitq/Game-of-Life&#34;&gt;Game-of-Life&lt;/a&gt; 一个模拟康威生命游戏的软件&lt;/li&gt;
 &lt;/ul&gt;
